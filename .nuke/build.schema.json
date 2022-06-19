@@ -79,8 +79,10 @@
               "Clean",
               "CompileGtk",
               "CompileStandard",
+              "CompileWasm",
               "CompileXamarin",
               "RestoreGtk",
+              "RestoreWasm",
               "RestoreXamarin"
             ]
           }
@@ -94,8 +96,10 @@
               "Clean",
               "CompileGtk",
               "CompileStandard",
+              "CompileWasm",
               "CompileXamarin",
               "RestoreGtk",
+              "RestoreWasm",
               "RestoreXamarin"
             ]
           }
