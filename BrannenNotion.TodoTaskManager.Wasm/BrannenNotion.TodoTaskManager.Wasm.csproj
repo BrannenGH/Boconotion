@@ -52,4 +52,7 @@
   <ItemGroup>
     <ProjectReference Include="..\BrannenNotion.TodoTaskManager.Shared\BrannenNotion.TodoTaskManager.Shared.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Page Include="App.xaml" />
+  </ItemGroup>
 </Project>
