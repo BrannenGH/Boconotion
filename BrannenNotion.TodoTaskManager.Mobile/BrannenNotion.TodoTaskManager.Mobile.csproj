@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-        <TargetFrameworks>net6.0-android;net6.0-ios;net6.0-maccatalyst;net6.0-macos</TargetFrameworks>
+        <TargetFrameworks>net6.0-ios;net6.0-maccatalyst</TargetFrameworks>
         <SingleProject>true</SingleProject>
         <OutputType>Exe</OutputType>
         <RuntimeIdentifier Condition="'$(TargetFramework)' == 'net6.0-ios'">iossimulator-x64</RuntimeIdentifier>
@@ -24,13 +24,15 @@
         <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="5.0.0" />
     </ItemGroup>
     <ItemGroup>
-      <ProjectReference Include="..\..\BrannenNotion.Shared\BrannenNotion.Shared.csproj" />
-      <ProjectReference Include="..\..\BrannenNotion.TodoTaskManager.Shared\BrannenNotion.TodoTaskManager.Shared.csproj" />
+      <ProjectReference Include="..\BrannenNotion.TodoTaskManager.Shared\BrannenNotion.TodoTaskManager.Shared.csproj" />
     </ItemGroup>
     <ItemGroup>
       <Reference Include="System.Private.CoreLib">
-        <HintPath>..\..\..\..\..\..\..\usr\local\share\dotnet\shared\Microsoft.NETCore.App\6.0.5\System.Private.CoreLib.dll</HintPath>
+        <HintPath>..\..\..\..\..\..\usr\local\share\dotnet\shared\Microsoft.NETCore.App\6.0.5\System.Private.CoreLib.dll</HintPath>
       </Reference>
+    </ItemGroup>
+    <ItemGroup>
+      <Page Include="App.xaml" />
     </ItemGroup>
     <Choose>
         <When Condition="'$(TargetFramework)'=='net6.0-android'">

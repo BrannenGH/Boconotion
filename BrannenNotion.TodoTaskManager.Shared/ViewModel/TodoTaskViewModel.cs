@@ -10,7 +10,7 @@ namespace BrannenNotion.TodoTaskManager.ViewModel
 
     public class TodoTaskViewModel
      {
-         public ObservableCollection<TodoTask> TodoTasks = new();
+         public ObservableCollection<TodoTask> TodoTasks = new ObservableCollection<TodoTask>();
          private TaskRepository _taskRepository;
 
          public TodoTaskViewModel(TaskRepository taskRepository)

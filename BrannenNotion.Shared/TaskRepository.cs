@@ -63,9 +63,9 @@
 
         public async Task<PaginatedList<Page>> GetTasks()
         {
-            await GetDatabaseIdIfNeeded(); 
+            await this.GetDatabaseIdIfNeeded();
 
-            return await client.Databases.QueryAsync(TaskDatabaseId, new DatabasesQueryParameters());
+            return await client.Databases.QueryAsync(this.TaskDatabaseId, new DatabasesQueryParameters());
         }
 
         public async Task UpdateTodoTask(

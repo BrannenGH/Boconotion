@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrannenNotion.Functions", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrannenNotion.Shared", "BrannenNotion.Shared\BrannenNotion.Shared.csproj", "{115E2E40-0935-4378-A632-154E0962FCB0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrannenNotion.TodoTaskManager.Shared", "BrannenNotion.TodoTaskManager.Shared\BrannenNotion.TodoTaskManager.Shared.csproj", "{08A69332-E674-4EE8-989E-63122C2869CE}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrannenNotion.Shared.Test", "BrannenNotion.Shared.Test\BrannenNotion.Shared.Test.csproj", "{9DDBB22A-CBEF-4925-A376-0986DDBA81A3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrannenNotion.TodoTaskManager.Mobile", "BrannenNotion.TodoTaskManager.Mobile\BrannenNotion.TodoTaskManager.Mobile.csproj", "{0893C40E-75AA-4781-A2FA-87B309140026}"
@@ -16,6 +14,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrannenNotion.TodoTaskManager.Skia.Gtk", "BrannenNotion.TodoTaskManager.Skia.Gtk\BrannenNotion.TodoTaskManager.Skia.Gtk.csproj", "{7B7161B6-6B1F-4B78-B516-331826E352CA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrannenNotion.TodoTaskManager.Wasm", "BrannenNotion.TodoTaskManager.Wasm\BrannenNotion.TodoTaskManager.Wasm.csproj", "{A9919E6A-FC32-477B-A675-ABCC94B5AD87}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrannenNotion.Build", "BrannenNotion.Build\BrannenNotion.Build.csproj", "{C6FCDA4C-B506-459B-BDC2-60BAA9EC8F4F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrannenNotion.TodoTaskManager.Shared", "BrannenNotion.TodoTaskManager.Shared\BrannenNotion.TodoTaskManager.Shared.csproj", "{8887CBFF-A7D0-4378-952C-442E68B76C6B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,10 +33,6 @@ Global
 		{115E2E40-0935-4378-A632-154E0962FCB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{115E2E40-0935-4378-A632-154E0962FCB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{115E2E40-0935-4378-A632-154E0962FCB0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{08A69332-E674-4EE8-989E-63122C2869CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{08A69332-E674-4EE8-989E-63122C2869CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{08A69332-E674-4EE8-989E-63122C2869CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{08A69332-E674-4EE8-989E-63122C2869CE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9DDBB22A-CBEF-4925-A376-0986DDBA81A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9DDBB22A-CBEF-4925-A376-0986DDBA81A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9DDBB22A-CBEF-4925-A376-0986DDBA81A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -51,6 +49,14 @@ Global
 		{A9919E6A-FC32-477B-A675-ABCC94B5AD87}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A9919E6A-FC32-477B-A675-ABCC94B5AD87}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A9919E6A-FC32-477B-A675-ABCC94B5AD87}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6FCDA4C-B506-459B-BDC2-60BAA9EC8F4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6FCDA4C-B506-459B-BDC2-60BAA9EC8F4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6FCDA4C-B506-459B-BDC2-60BAA9EC8F4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6FCDA4C-B506-459B-BDC2-60BAA9EC8F4F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8887CBFF-A7D0-4378-952C-442E68B76C6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8887CBFF-A7D0-4378-952C-442E68B76C6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8887CBFF-A7D0-4378-952C-442E68B76C6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8887CBFF-A7D0-4378-952C-442E68B76C6B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

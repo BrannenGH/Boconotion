@@ -1,5 +1,5 @@
 <Application
-    x:Class="BrannenNotion.TodoTaskManager.Shared.App"
+    x:Class="BrannenNotion.TodoTaskManager.Mobile.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:cupertino="clr-namespace:Uno.Cupertino;assembly=Uno.Cupertino"

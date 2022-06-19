@@ -1,4 +1,4 @@
-namespace BrannenNotion.TodoTaskManager.Shared
+namespace BrannenNotion.TodoTaskManager.Mobile
 {
     using System;
     using BrannenNotion.TodoTaskManager.Shared.View;
