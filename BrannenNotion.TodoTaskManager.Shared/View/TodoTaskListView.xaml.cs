@@ -21,7 +21,7 @@ namespace BrannenNotion.TodoTaskManager.Shared.View
 
             // TODO: Use inversion of control
             IConfiguration config = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json")
+                .AddJsonFile("appsettings.json", true)
                 .Build();
 
             var client = NotionClientFactory.Create(new ClientOptions

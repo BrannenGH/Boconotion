@@ -1,0 +1,20 @@
+<Application
+    x:Class="BrannenNotion.TodoTaskManager.Droid.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:cupertino="clr-namespace:Uno.Cupertino;assembly=Uno.Cupertino"
+    xmlns:controls="clr-namespace:Microsoft.UI.Xaml.Controls;assembly=Uno.UI.FluentTheme">
+	
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <controls:XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
+                <!-- Add resource dictionaries here -->           
+                <cupertino:CupertinoColors xmlns="using:Uno.Cupertino"  />
+                <cupertino:CupertinoResources xmlns="using:Uno.Cupertino" />
+            </ResourceDictionary.MergedDictionaries>
+            <!-- Add resources here -->
+        </ResourceDictionary>
+    </Application.Resources>
+
+</Application>

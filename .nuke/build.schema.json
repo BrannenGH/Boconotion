@@ -77,13 +77,15 @@
             "type": "string",
             "enum": [
               "Clean",
+              "CompileDroid",
               "CompileGtk",
+              "CompileIos",
               "CompileStandard",
               "CompileWasm",
-              "CompileXamarin",
+              "RestoreDroid",
               "RestoreGtk",
-              "RestoreWasm",
-              "RestoreXamarin"
+              "RestoreIos",
+              "RestoreWasm"
             ]
           }
         },
@@ -94,13 +96,15 @@
             "type": "string",
             "enum": [
               "Clean",
+              "CompileDroid",
               "CompileGtk",
+              "CompileIos",
               "CompileStandard",
               "CompileWasm",
-              "CompileXamarin",
+              "RestoreDroid",
               "RestoreGtk",
-              "RestoreWasm",
-              "RestoreXamarin"
+              "RestoreIos",
+              "RestoreWasm"
             ]
           }
         },
