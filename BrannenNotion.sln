@@ -1,4 +1,4 @@
-
+﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.810.22
@@ -19,12 +19,20 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrannenNotion.TodoTaskManag
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrannenNotion.TodoTaskManager.Wasm", "BrannenNotion.TodoTaskManager.Wasm\BrannenNotion.TodoTaskManager.Wasm.csproj", "{A9919E6A-FC32-477B-A675-ABCC94B5AD87}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BrannenNotion.Build", "BrannenNotion.Build.csproj", "{DCF29314-52E9-4EB4-B29C-8D561DF8F2A7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BrannenNotion.Build", "BrannenNotion.Build\BrannenNotion.Build.csproj", "{CAA0C113-C62E-4622-BA23-618E45AFE14A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CAA0C113-C62E-4622-BA23-618E45AFE14A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CAA0C113-C62E-4622-BA23-618E45AFE14A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCF29314-52E9-4EB4-B29C-8D561DF8F2A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCF29314-52E9-4EB4-B29C-8D561DF8F2A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FBB608DA-82F6-42E5-9632-7BA536CF878A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FBB608DA-82F6-42E5-9632-7BA536CF878A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FBB608DA-82F6-42E5-9632-7BA536CF878A}.Release|Any CPU.ActiveCfg = Release|Any CPU
