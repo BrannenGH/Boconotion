@@ -9,12 +9,12 @@
 #
 #     - To trigger manual generation invoke:
 #
-#         nuke --generate-configuration GitHubActions_ios-build --host GitHubActions
+#         nuke --generate-configuration GitHubActions_macos-build --host GitHubActions
 #
 # </auto-generated>
 # ------------------------------------------------------------------------------
 
-name: ios-build
+name: macos-build
 
 on:
   push:
@@ -34,5 +34,5 @@ jobs:
             .nuke/temp
             ~/.nuget/packages
           key: ${{ runner.os }}-${{ hashFiles('**/global.json', '**/*.csproj') }}
-      - name: Run './build.cmd CompileIos'
-        run: ./build.cmd CompileIos
+      - name: Run './build.cmd CompileMacOs'
+        run: ./build.cmd CompileMacOs

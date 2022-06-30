@@ -1,8 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFrameworks>netstandard2.0;xamarinios10;xamarinmac20;MonoAndroid11.0;MonoAndroid12.0</TargetFrameworks>
-        <!--<TargetFramework>netstandard2.0</TargetFramework>-->
+        <!--<TargetFrameworks>netstandard2.0;xamarinios10;xamarinmac20;MonoAndroid11.0;MonoAndroid12.0</TargetFrameworks>-->
+        <TargetFramework>netstandard2.0</TargetFramework>
         <!-- Ensures the .xr.xml files are generated in a proper layout folder -->
         <GenerateLibraryLayout>true</GenerateLibraryLayout>
         <RootNamespace>BrannenNotion.TodoTaskManager.Shared</RootNamespace>
@@ -14,11 +14,13 @@
         <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="5.0.0" />
         <PackageReference Include="Uno.UI" Version="4.3.8" />
         <PackageReference Include="Uno.Cupertino" Version="2.1.0" />
+        <PackageReference Include="Uno.Microsoft.Xaml.Behaviors.Uwp.Managed" Version="2.3.0" />
         <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
         </PackageReference>
         <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
+        <PackageReference Include="Microsoft.Toolkit.Mvvm" Version="7.1.2" />
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\BrannenNotion.Shared\BrannenNotion.Shared.csproj" />

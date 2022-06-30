@@ -1,13 +1,13 @@
 namespace BrannenNotion.TodoTaskManager.Wasm
 {
     using System;
-    using BrannenNotion.TodoTaskManager.Shared.View;
     using Microsoft.Extensions.Logging;
     using Windows.ApplicationModel;
     using Windows.ApplicationModel.Activation;
     using Windows.UI.Xaml;
     using Windows.UI.Xaml.Controls;
     using Windows.UI.Xaml.Navigation;
+    using BrannenNotion.TodoTaskManager.Shared.Page;
 
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.
@@ -82,7 +82,7 @@ namespace BrannenNotion.TodoTaskManager.Wasm
                     // When the navigation stack isn't restored navigate to the first page,
                     // configuring the new page by passing required information as a navigation
                     // parameter
-                    rootFrame.Navigate(typeof(TodoTaskListView), args.Arguments);
+                    rootFrame.Navigate(typeof(Home), args.Arguments);
                 }
                 // Ensure the current window is active
                 _window.Activate();
@@ -121,7 +121,7 @@ namespace BrannenNotion.TodoTaskManager.Wasm
 #if DEBUG
             // Logging is disabled by default for release builds, as it incurs a significant
             // initialization cost from Microsoft.Extensions.Logging setup. If startup performance
-            // is a concern for your application, keep this disabled. If you're running on web or 
+            // is a concern for your application, keep this disabled. If you're running on web or
             // desktop targets, you can use url or command line parameters to enable it.
             //
             // For more performance documentation: https://platform.uno/docs/articles/Uno-UI-Performance.html

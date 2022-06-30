@@ -80,11 +80,13 @@
               "CompileDroid",
               "CompileGtk",
               "CompileIos",
+              "CompileMacOs",
               "CompileStandard",
               "CompileWasm",
               "RestoreDroid",
               "RestoreGtk",
               "RestoreIos",
+              "RestoreMacOs",
               "RestoreWasm"
             ]
           }
@@ -99,11 +101,13 @@
               "CompileDroid",
               "CompileGtk",
               "CompileIos",
+              "CompileMacOs",
               "CompileStandard",
               "CompileWasm",
               "RestoreDroid",
               "RestoreGtk",
               "RestoreIos",
+              "RestoreMacOs",
               "RestoreWasm"
             ]
           }

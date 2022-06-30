@@ -414,3 +414,6 @@ FodyWeavers.xsd
 appsettings.json
 appconfig.json
 local.settings.json
+
+# MacOS Files
+.DS_Store

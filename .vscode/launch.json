@@ -1,0 +1,44 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            // Use IntelliSense to find out which attributes exist for C# debugging
+            // Use hover for the description of the existing attributes
+            // For further information visit https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md
+            "name": "Launch GTK",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "compile-gtk",
+            // If you have changed target frameworks, make sure to update the program path.
+            "program": "${workspaceFolder}/BrannenNotion.TodoTaskManager.Skia.Gtk/bin/Debug/net6.0/BrannenNotion.TodoTaskManager.Skia.Gtk.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/BrannenNotion.TodoTaskManager.Skia.Gtk",
+            // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
+            "console": "internalConsole",
+            "stopAtEntry": false
+        },
+        {
+            // Use IntelliSense to find out which attributes exist for C# debugging
+            // Use hover for the description of the existing attributes
+            // For further information visit https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md
+            "name": "Launch WASM",
+            "type": "pwa-chrome",
+            "preLaunchTask": "compile-wasm",
+            "request": "launch",
+            "url": "http://localhost:5000",
+            "webRoot": "${workspaceFolder}/BrannenNotion.TodoTaskManager.Wasm",
+            //"inspectUri": "{wsProtocol}://{url.hostname}:{url.port}/_framework/debug/ws-proxy?browser={browserInspectUri}",
+            "server": {
+              "runtimeExecutable": "dotnet",
+              "program": "run",
+              "outputCapture": "std",
+              "cwd": "${workspaceFolder}/BrannenNotion.TodoTaskManager.Wasm"
+            }
+        },
+        {
+            "name": ".NET Core Attach",
+            "type": "coreclr",
+            "request": "attach"
+        }
+    ]
+}
