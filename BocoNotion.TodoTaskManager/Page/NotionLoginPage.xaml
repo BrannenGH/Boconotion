@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="BocoNotion.TodoTaskManager.Page.NotionLoginPage">
+    <ScrollView>
+    <StackLayout
+        Orientation="Vertical">
+        <StackLayout Orientation="Vertical" >
+            <Label Text="Enter Notion Token:" />
+            <Entry x:Name="NotionToken" Text="{Binding Token, Mode=TwoWay}"/>
+        </StackLayout>
+        <Button x:Name="NotionTokenSubmit" Text="Save Token"
+                Clicked="NotionTokenSubmit_Clicked" />
+        </StackLayout>
+        </ScrollView>
+</ContentPage>
