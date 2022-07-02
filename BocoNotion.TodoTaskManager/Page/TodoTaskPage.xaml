@@ -3,6 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="BocoNotion.TodoTaskManager.Page.TodoTaskPage"
              xmlns:behaviors="clr-namespace:Behaviors;assembly=Behaviors">
+    <NavigationPage.TitleView>
+        <StackLayout Orientation="Horizontal">
+            <Label Text="To-Do"/>
+            <Button x:Name="SaveToken" Text="Save"
+                Command="{Binding UpdateTasksCommand}"/>
+        </StackLayout>
+    </NavigationPage.TitleView>
+
     <ContentPage.Behaviors>
         <behaviors:EventHandlerBehavior EventName="Appearing">
             <behaviors:InvokeCommandAction Command="{Binding LoadTasksCommand}" />
@@ -10,26 +18,24 @@
     </ContentPage.Behaviors>
 
     <ScrollView>
-    <StackLayout
-        Orientation="Vertical">
-        <ListView x:Name="TodoTaskListView"
-                ItemsSource="{Binding \TodoTasks}">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                   <ViewCell>
-                        <StackLayout
-                            Orientation="Horizontal">
-                            <CheckBox
-                                IsChecked="{Binding Path=Checked, Mode=TwoWay}"/>
-                            <Label
-                                Text="{Binding Path=Title}" />
-                        </StackLayout>
-                   </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-        <Button x:Name="SaveToken" Text="Save"/>
+        <StackLayout Orientation="Vertical">
+            <ListView x:Name="TodoTaskListView"
+                    ItemsSource="{Binding TodoTasks}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                    <ViewCell>
+                            <StackLayout
+                                Orientation="Horizontal">
+                                <CheckBox
+                                    IsChecked="{Binding Path=Checked, Mode=TwoWay}"/>
+                                <Label
+                                    Text="{Binding Path=Title}" />
+                            </StackLayout>
+                    </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </StackLayout>
-        </ScrollView>
+    </ScrollView>
 
 </ContentPage>

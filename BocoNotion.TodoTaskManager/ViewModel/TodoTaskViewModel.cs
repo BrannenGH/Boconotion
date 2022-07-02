@@ -22,11 +22,13 @@ namespace BocoNotion.TodoTaskManager.ViewModel
         public ObservableCollection<TodoTask> TodoTasks = new ObservableCollection<TodoTask>();
 
         public ICommand LoadTasksCommand { get; }
+        public ICommand UpdateTasksCommand { get;  }
 
         public TodoTaskViewModel(string token)
         {
             this.ConfigureClient(token);
             this.LoadTasksCommand = new AsyncRelayCommand(this.LoadTasks);
+            this.UpdateTasksCommand = new AsyncRelayCommand(this.UpdateTasks);
         }
 
         public void ConfigureClient(string token)
@@ -43,7 +45,7 @@ namespace BocoNotion.TodoTaskManager.ViewModel
         {
             var todoTaskPages = (await this.taskRepository.GetTasks()).Results;
             var todoTasks = todoTaskPages.Select(tt => TodoTask.CreateFromPage(tt));
-            foreach (var todoTask in todoTasks)
+            foreach (var todoTask in todoTasks.OrderBy(x => x.Checked))
             {
                 this.TodoTasks.Add(todoTask);
             }

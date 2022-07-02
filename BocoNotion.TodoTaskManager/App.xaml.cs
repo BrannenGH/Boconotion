@@ -1,5 +1,6 @@
 ﻿using System;
 using BocoNotion.TodoTaskManager.Page;
+using BocoNotion.TodoTaskManager.Persistence;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -7,15 +8,15 @@ namespace BocoNotion.TodoTaskManager
 {
     public partial class App : Application
     {
-        public App()
+        public App(ITokenProvider provider)
         {
-            InitializeComponent();
+            this.InitializeComponent();
 
-            var firstPage = new NotionLoginPage();
+            var firstPage = new NotionLoginPage(provider);
 
             var navigation = new NavigationPage(firstPage);
 
-            firstPage.NavigationManager = navigation.Navigation;
+            firstPage.ParentNavigationPage = navigation;
 
             MainPage = navigation;
         }

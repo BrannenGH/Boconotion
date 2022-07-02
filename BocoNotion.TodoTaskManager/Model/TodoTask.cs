@@ -56,8 +56,8 @@ namespace BocoNotion.TodoTaskManager.Shared.Model
 
          public static TodoTask CreateFromPage(Page todoTaskPage)
          {
-            var title = (todoTaskPage.Properties["Name"] as TitlePropertyValue)?.Title.First().PlainText;
-            var isChecked = (todoTaskPage.Properties["State"] as SelectPropertyValue)?.Select.Name == "Done";
+            var title = (todoTaskPage.Properties["Name"] as TitlePropertyValue)?.Title?.First()?.PlainText;
+            var isChecked = (todoTaskPage.Properties["State"] as SelectPropertyValue)?.Select?.Name == "Done";
 
             return new TodoTask
             {

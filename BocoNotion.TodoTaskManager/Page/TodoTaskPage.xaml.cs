@@ -11,7 +11,7 @@ namespace BocoNotion.TodoTaskManager.Page
 {
     public partial class TodoTaskPage : ContentPage
     {
-        public INavigation NavigationManager { get; set; }
+        public NavigationPage ParentNavigationPage { get; set; }
 
         public TodoTaskPage(string token)
         {

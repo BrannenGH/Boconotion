@@ -70,6 +70,7 @@
     <None Include="Entitlements.plist" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Persistence\AppleTokenProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
@@ -127,8 +128,9 @@
   <ItemGroup>
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
     <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
+    <PackageReference Include="SimpleStorage" Version="1.4.36" />
   </ItemGroup>
-  <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath)/Xamarin/iOS/Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
     <ProjectReference Include="..\BocoNotion.TodoTaskManager\BocoNotion.TodoTaskManager.csproj">
       <Project>{5D3B3298-D100-4163-80EE-3E020506198B}</Project>

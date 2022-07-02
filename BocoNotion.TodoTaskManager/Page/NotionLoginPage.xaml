@@ -2,16 +2,28 @@
 <ContentPage
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="BocoNotion.TodoTaskManager.Page.NotionLoginPage">
+    x:Class="BocoNotion.TodoTaskManager.Page.NotionLoginPage"
+    xmlns:behaviors="clr-namespace:Behaviors;assembly=Behaviors">
+    <NavigationPage.TitleView>
+        <Label Text="Login to Notion"/>
+    </NavigationPage.TitleView>
+
+    <ContentPage.Behaviors>
+        <behaviors:EventHandlerBehavior EventName="Appearing">
+            <behaviors:InvokeCommandAction Command="{Binding LoadTokenCommand}" />
+        </behaviors:EventHandlerBehavior>
+    </ContentPage.Behaviors>
+
     <ScrollView>
-    <StackLayout
-        Orientation="Vertical">
-        <StackLayout Orientation="Vertical" >
-            <Label Text="Enter Notion Token:" />
-            <Entry x:Name="NotionToken" Text="{Binding Token, Mode=TwoWay}"/>
-        </StackLayout>
-        <Button x:Name="NotionTokenSubmit" Text="Save Token"
-                Clicked="NotionTokenSubmit_Clicked" />
-        </StackLayout>
+        <StackLayout
+            Orientation="Vertical">
+            <StackLayout Orientation="Vertical" >
+                <Label Text="Enter Notion Token:" />
+                <Entry x:Name="NotionToken" Text="{Binding Token, Mode=TwoWay}"/>
+            </StackLayout>
+            <Button x:Name="NotionTokenSubmit" Text="Save Token"
+                    Command="{Binding SaveTokenCommand}"
+                    Clicked="NotionTokenSubmit_Clicked" />
+            </StackLayout>
         </ScrollView>
 </ContentPage>
