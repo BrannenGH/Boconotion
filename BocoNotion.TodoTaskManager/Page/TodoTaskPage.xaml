@@ -2,7 +2,8 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="BocoNotion.TodoTaskManager.Page.TodoTaskPage"
-             xmlns:behaviors="clr-namespace:Behaviors;assembly=Behaviors">
+             xmlns:behaviors="clr-namespace:Behaviors;assembly=Behaviors"
+             xmlns:component="clr-namespace:BocoNotion.TodoTaskManager.Component">
     <NavigationPage.TitleView>
         <StackLayout Orientation="Horizontal">
             <Label Text="To-Do"/>
@@ -23,15 +24,7 @@
                     ItemsSource="{Binding TodoTasks}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                    <ViewCell>
-                            <StackLayout
-                                Orientation="Horizontal">
-                                <CheckBox
-                                    IsChecked="{Binding Path=Checked, Mode=TwoWay}"/>
-                                <Label
-                                    Text="{Binding Path=Title}" />
-                            </StackLayout>
-                    </ViewCell>
+                        <component:TodoTaskViewCell />
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>

@@ -1,4 +1,4 @@
-namespace BocoNotion.TodoTaskManager.ViewModel
+﻿namespace BocoNotion.TodoTaskManager.ViewModel
 {
     using System;
     using System.Collections.ObjectModel;
@@ -12,53 +12,74 @@ namespace BocoNotion.TodoTaskManager.ViewModel
     using Microsoft.Toolkit.Mvvm.Input;
     using Notion.Client;
 
-    /// <summary>
-    /// View model for the <see cref="TodoTaskPage"/>.
-    /// </summary>
     public class TodoTaskViewModel : ObservableObject
     {
-        private TaskRepository taskRepository;
+        /// <summary>
+        /// Gets or sets a value indicating whether the todo item needs to be updated in Notion.
+        /// </summary>
+        public bool NeedsUpdate { get; private set; } = false;
 
-        public ObservableCollection<TodoTask> TodoTasks = new ObservableCollection<TodoTask>();
+        public string Id => this.TodoTask.Id;
 
-        public ICommand LoadTasksCommand { get; }
-        public ICommand UpdateTasksCommand { get;  }
+        public TodoTask TodoTask { get; }
 
-        public TodoTaskViewModel(string token)
+        /// <summary>
+        /// Gets or sets the name of the todo item.
+        /// </summary>
+        public string Title
         {
-            this.ConfigureClient(token);
-            this.LoadTasksCommand = new AsyncRelayCommand(this.LoadTasks);
-            this.UpdateTasksCommand = new AsyncRelayCommand(this.UpdateTasks);
-        }
-
-        public void ConfigureClient(string token)
-        {
-            var client = NotionClientFactory.Create(new ClientOptions
+            get
             {
-                AuthToken = token,
-            });
+                return this.TodoTask.Title;
+            }
 
-            this.taskRepository = new TaskRepository(client);
-        }
-
-        public async Task LoadTasks()
-        {
-            var todoTaskPages = (await this.taskRepository.GetTasks()).Results;
-            var todoTasks = todoTaskPages.Select(tt => TodoTask.CreateFromPage(tt));
-            foreach (var todoTask in todoTasks.OrderBy(x => x.Checked))
+            set
             {
-                this.TodoTasks.Add(todoTask);
+                this.TodoTask.Title = value;
+                this.NeedsUpdate = true;
             }
         }
 
-        public async Task UpdateTasks()
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the todo item is finished.
+        /// </summary>
+        public bool Checked
         {
-            var tasksToUpdate = TodoTasks.Where(task => task.NeedsUpdate);
-            foreach (var todoTask in tasksToUpdate)
+            get
             {
-                await this.taskRepository.UpdateTodoTask(todoTask.TodoTaskId, todoTask.Title, todoTask.Checked);
-                todoTask.NeedsUpdate = false;
+                return this.TodoTask.Checked;
             }
+
+            set
+            {
+                this.TodoTask.Checked = value;
+                this.NeedsUpdate = true;
+            }
+        }
+
+        public TodoTaskViewModel(TodoTask tt)
+        {
+            this.TodoTask = tt;
+        }
+
+        public void OnUpdate()
+        {
+            this.NeedsUpdate = false;
+        }
+
+        public static TodoTaskViewModel CreateFromPage(Page todoTaskPage)
+        {
+
+            var tt = new TodoTask
+            {
+                Id = todoTaskPage.Id,
+                Title = (todoTaskPage.Properties["Name"] as TitlePropertyValue)?.Title?.First()?.PlainText,
+                Checked = (todoTaskPage.Properties["State"] as SelectPropertyValue)?.Select?.Name == "Done",
+            };
+
+            return new TodoTaskViewModel(tt);
         }
     }
 }
+

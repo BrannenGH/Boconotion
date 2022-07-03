@@ -1,14 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BocoNotion.TodoTaskManager.ViewModel;
-using Xamarin.Forms;
-
-namespace BocoNotion.TodoTaskManager.Page
+﻿namespace BocoNotion.TodoTaskManager.Page
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using BocoNotion.TodoTaskManager.ViewModel;
+    using Xamarin.Forms;
+    using BocoNotion.TodoTaskManager.Component;
+
     public partial class TodoTaskPage : ContentPage
     {
         public NavigationPage ParentNavigationPage { get; set; }
@@ -17,12 +18,12 @@ namespace BocoNotion.TodoTaskManager.Page
         {
             this.InitializeComponent();
 
-            this.BindingContext = new TodoTaskViewModel(token);
+            this.BindingContext = new TodoTasksViewModel(token);
 
             this.TodoTaskListView.SetBinding(ListView.ItemsSourceProperty, new Binding("."));
             this.TodoTaskListView.BindingContext = ViewModel.TodoTasks;
         }
 
-        private TodoTaskViewModel ViewModel => (TodoTaskViewModel)this.BindingContext;
+        private TodoTasksViewModel ViewModel => (TodoTasksViewModel)this.BindingContext;
     }
 }
