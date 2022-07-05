@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using BocoNotion.TodoTaskManager.iOS.Persistence;
 using Foundation;
+using Hackiftekhar.IQKeyboardManager.Xamarin;
 using UIKit;
 
 namespace BocoNotion.TodoTaskManager.iOS
@@ -23,6 +24,7 @@ namespace BocoNotion.TodoTaskManager.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
+            IQKeyboardManager.SharedManager().Enable = true;
             LoadApplication(new App(new AppleTokenProvider()));
 
             return base.FinishedLaunching(app, options);

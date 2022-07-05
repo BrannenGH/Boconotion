@@ -22,13 +22,35 @@ namespace BocoNotion.TodoTaskManager.ViewModel
         public ObservableCollection<TodoTaskViewModel> TodoTasks = new ObservableCollection<TodoTaskViewModel>();
 
         public ICommand LoadTasksCommand { get; }
-        public ICommand UpdateTasksCommand { get;  }
+        public ICommand UpdateTasksCommand { get; }
+        public ICommand AddTaskCommand { get; }
+
+        public string NewTaskTitle
+        {
+            get => this.newTaskTitle;
+            set
+            {
+                this.SetProperty(ref this.newTaskTitle, value);
+                EvaluateCanAddTask();
+            }
+        }
+
+        private string newTaskTitle = "";
+
+        public bool CanAddTask
+        {
+            get => this.canAddTask;
+            set => this.SetProperty(ref this.canAddTask, value);
+        }
+
+        private bool canAddTask = false;
 
         public TodoTasksViewModel(string token)
         {
             this.ConfigureClient(token);
             this.LoadTasksCommand = new AsyncRelayCommand(this.LoadTasks);
             this.UpdateTasksCommand = new AsyncRelayCommand(this.UpdateTasks);
+            this.AddTaskCommand = new AsyncRelayCommand(this.AddTask);
         }
 
         public void ConfigureClient(string token)
@@ -45,6 +67,7 @@ namespace BocoNotion.TodoTaskManager.ViewModel
         {
             var todoTaskPages = (await this.taskRepository.GetTasks()).Results;
             var todoTasks = todoTaskPages.Select(tt => TodoTaskViewModel.CreateFromPage(tt));
+            this.TodoTasks.Clear();
             foreach (var todoTask in todoTasks.OrderBy(x => x.Checked))
             {
                 this.TodoTasks.Add(todoTask);
@@ -59,6 +82,19 @@ namespace BocoNotion.TodoTaskManager.ViewModel
                 await this.taskRepository.UpdateTodoTask(todoTask.Id, todoTask.Title, todoTask.Checked);
                 todoTask.OnUpdate();
             }
+            await this.LoadTasks();
+        }
+
+        public async Task AddTask()
+        {
+            await this.taskRepository.AddTodoTask(this.NewTaskTitle);
+            this.NewTaskTitle = "";
+            await this.LoadTasks();
+        }
+
+        public void EvaluateCanAddTask()
+        {
+            this.CanAddTask = !string.IsNullOrWhiteSpace(this.NewTaskTitle);
         }
     }
 }

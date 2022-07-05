@@ -88,5 +88,31 @@
             };
             await client.Pages.UpdatePropertiesAsync(todoTaskId, updateProperties);
         }
+
+        public async Task AddTodoTask(
+            string name
+        )
+        {
+            await this.GetDatabaseIdIfNeeded();
+
+            var pageCreateCommand = new PagesCreateParameters
+            {
+                Parent = new DatabaseParentInput { DatabaseId = this.TaskDatabaseId },
+                Properties = new Dictionary<string, PropertyValue>
+                {
+                    {
+                        "Name",
+                        new TitlePropertyValue()
+                            { Title = new List<RichTextBase>() { new RichTextText() { Text = new Text { Content = name } } } }
+                    },
+                    {
+                        "State",
+                        new SelectPropertyValue() { Select = new SelectOption() { Name = "Not Ready" } }
+                    },
+                },
+            };
+
+            await this.client.Pages.CreateAsync(pageCreateCommand);
+        }
     }
 }

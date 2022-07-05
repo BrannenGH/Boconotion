@@ -17,7 +17,13 @@
         /// <summary>
         /// Gets or sets a value indicating whether the todo item needs to be updated in Notion.
         /// </summary>
-        public bool NeedsUpdate { get; private set; } = false;
+        public bool NeedsUpdate
+        {
+            get => this.needsUpdate;
+            private set => this.SetProperty(ref needsUpdate, value);
+        }
+
+        private bool needsUpdate = false;
 
         public string Id => this.TodoTask.Id;
 
@@ -35,7 +41,7 @@
 
             set
             {
-                this.TodoTask.Title = value;
+                this.SetProperty(this.TodoTask.Title, value, this.TodoTask, (tt, title) => tt.Title = title);
                 this.NeedsUpdate = true;
             }
         }
@@ -53,7 +59,7 @@
 
             set
             {
-                this.TodoTask.Checked = value;
+                this.SetProperty(this.TodoTask.Checked, value, this.TodoTask, (tt, isChecked) => tt.Checked = isChecked);
                 this.NeedsUpdate = true;
             }
         }
@@ -62,7 +68,7 @@
         {
             this.TodoTask = tt;
         }
-
+    
         public void OnUpdate()
         {
             this.NeedsUpdate = false;

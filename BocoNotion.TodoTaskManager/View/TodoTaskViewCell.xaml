@@ -6,8 +6,9 @@
     <StackLayout Orientation="Horizontal">
         <CheckBox
             IsChecked="{Binding Path=Checked, Mode=TwoWay}"/>
-        <Label
-            Text="{Binding Path=Title}" />
+        <StackLayout Orientation="Vertical">
+            <Label Text="{Binding Path=Title}" />
+        </StackLayout>
     </StackLayout>
   </ViewCell.View>
 </ViewCell>
