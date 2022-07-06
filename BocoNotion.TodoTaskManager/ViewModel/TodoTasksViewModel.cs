@@ -1,13 +1,11 @@
 namespace BocoNotion.TodoTaskManager.ViewModel
 {
-    using System;
     using System.Collections.ObjectModel;
-    using System.ComponentModel;
     using System.Linq;
     using System.Threading.Tasks;
     using System.Windows.Input;
     using BocoNotion.Shared;
-    using BocoNotion.TodoTaskManager.Shared.Model;
+    using BocoNotion.Shared.Model;
     using Microsoft.Toolkit.Mvvm.ComponentModel;
     using Microsoft.Toolkit.Mvvm.Input;
     using Notion.Client;
@@ -65,10 +63,10 @@ namespace BocoNotion.TodoTaskManager.ViewModel
 
         public async Task LoadTasks()
         {
-            var todoTaskPages = (await this.taskRepository.GetTasks()).Results;
-            var todoTasks = todoTaskPages.Select(tt => TodoTaskViewModel.CreateFromPage(tt));
+            var todoTasks = (await this.taskRepository.GetTasks()).Tasks;
+            var viewModels = todoTasks.Select(x => new TodoTaskViewModel(x));
             this.TodoTasks.Clear();
-            foreach (var todoTask in todoTasks.OrderBy(x => x.Checked))
+            foreach (var todoTask in viewModels.OrderBy(x => x.Checked))
             {
                 this.TodoTasks.Add(todoTask);
             }
@@ -79,7 +77,7 @@ namespace BocoNotion.TodoTaskManager.ViewModel
             var tasksToUpdate = TodoTasks.Where(task => task.NeedsUpdate);
             foreach (var todoTask in tasksToUpdate)
             {
-                await this.taskRepository.UpdateTodoTask(todoTask.Id, todoTask.Title, todoTask.Checked);
+                await this.taskRepository.UpdateTodoTask(todoTask.TodoTask);
                 todoTask.OnUpdate();
             }
             await this.LoadTasks();
@@ -87,9 +85,11 @@ namespace BocoNotion.TodoTaskManager.ViewModel
 
         public async Task AddTask()
         {
-            await this.taskRepository.AddTodoTask(this.NewTaskTitle);
+            this.CanAddTask = false;
+            await this.taskRepository.AddTodoTask(new TodoTask { Title = this.NewTaskTitle });
             this.NewTaskTitle = "";
             await this.LoadTasks();
+            this.CanAddTask = true;
         }
 
         public void EvaluateCanAddTask()

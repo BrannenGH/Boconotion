@@ -5,7 +5,9 @@
     x:Class="BocoNotion.TodoTaskManager.Page.NotionLoginPage"
     xmlns:behaviors="clr-namespace:Behaviors;assembly=Behaviors">
     <NavigationPage.TitleView>
-        <Label Text="Login to Notion"/>
+        <Label Text="Login to Notion"
+               VerticalOptions="CenterAndExpand"
+               HorizontalOptions="CenterAndExpand"/>
     </NavigationPage.TitleView>
 
     <ContentPage.Behaviors>

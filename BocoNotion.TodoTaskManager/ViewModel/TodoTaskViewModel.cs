@@ -1,15 +1,8 @@
 ﻿namespace BocoNotion.TodoTaskManager.ViewModel
 {
-    using System;
-    using System.Collections.ObjectModel;
-    using System.ComponentModel;
     using System.Linq;
-    using System.Threading.Tasks;
-    using System.Windows.Input;
-    using BocoNotion.Shared;
-    using BocoNotion.TodoTaskManager.Shared.Model;
+    using BocoNotion.Shared.Model;
     using Microsoft.Toolkit.Mvvm.ComponentModel;
-    using Microsoft.Toolkit.Mvvm.Input;
     using Notion.Client;
 
     public class TodoTaskViewModel : ObservableObject
@@ -72,19 +65,6 @@
         public void OnUpdate()
         {
             this.NeedsUpdate = false;
-        }
-
-        public static TodoTaskViewModel CreateFromPage(Page todoTaskPage)
-        {
-
-            var tt = new TodoTask
-            {
-                Id = todoTaskPage.Id,
-                Title = (todoTaskPage.Properties["Name"] as TitlePropertyValue)?.Title?.First()?.PlainText,
-                Checked = (todoTaskPage.Properties["State"] as SelectPropertyValue)?.Select?.Name == "Done",
-            };
-
-            return new TodoTaskViewModel(tt);
         }
     }
 }

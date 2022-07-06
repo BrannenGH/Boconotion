@@ -3,6 +3,8 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+    using BocoNotion.Shared.Model;
+    using BrannenNotion.Shared.Page;
     using Notion.Client;
 
     /// <summary>
@@ -24,17 +26,9 @@
         }
 
         /// <summary>
-        /// The Notion ID for the task database.
+        /// Gets or sets the Notion ID for the task database.
         /// </summary>
         public string TaskDatabaseId { get; set; }
-
-        private async Task GetDatabaseIdIfNeeded()
-        {
-            if (TaskDatabaseId == null)
-            {
-                TaskDatabaseId = await GetTaskDatabaseId();
-            }
-        } 
 
         /// <summary>
         /// Fetch the Task Notion Database ID.
@@ -52,7 +46,7 @@
                 },
             };
 
-            var results = await client.Search.SearchAsync(
+            var results = await this.client.Search.SearchAsync(
                 taskSearchParameters
             );
 
@@ -61,58 +55,71 @@
             return taskDbRes.Id;
         }
 
-        public async Task<PaginatedList<Page>> GetTasks()
+        /// <summary>
+        /// Get the tasks from the database.
+        /// </summary>
+        /// <param name="startCursor">A Notion provided StartCursor, if any.</param>
+        /// <returns>A list of tasks and the cursor to fetch the next batch.</returns>
+        public async Task<(List<TodoTask> Tasks, string NextCursor)> GetTasks(string startCursor = null)
         {
             await this.GetDatabaseIdIfNeeded();
 
-            return await client.Databases.QueryAsync(this.TaskDatabaseId, new DatabasesQueryParameters());
-        }
+            var queryParameters = new DatabasesQueryParameters();
 
-        public async Task UpdateTodoTask(
-            string todoTaskId,
-            string name,
-            bool isCompleted
-        )
-        {
-            var updateProperties = new Dictionary<string, PropertyValue>
+            if (startCursor != null)
             {
-                {
-                    "Name",
-                    new TitlePropertyValue()
-                        { Title = new List<RichTextBase>() { new RichTextText() { Text = new Text { Content = name } } } }
-                },
-                {
-                    "State",
-                    new SelectPropertyValue() { Select = new SelectOption() { Name = isCompleted ? "Done" : "Not Ready" } }
-                },
-            };
-            await client.Pages.UpdatePropertiesAsync(todoTaskId, updateProperties);
+                queryParameters.StartCursor = startCursor;
+            }
+
+            var results = await this.client.Databases.QueryAsync(this.TaskDatabaseId, queryParameters);
+
+            return (
+                Tasks: results.Results.Select(page => page.ToPoco()).ToList(),
+                NextCursor: results.NextCursor
+            );
         }
 
-        public async Task AddTodoTask(
-            string name
-        )
+        /// <summary>
+        /// Updates the <see cref="TodoTask"/> in Notion.
+        /// </summary>
+        /// <param name="tt">The task to update.</param>
+        /// <returns>A task representing the update command.</returns>
+        public async Task UpdateTodoTask(TodoTask tt)
+        {
+            await this.GetDatabaseIdIfNeeded();
+
+            if (tt.Id == null)
+            {
+                throw new System.Exception("TodoTask is not yet created in database. Cannot update.");
+            }
+
+            await this.client.Pages.UpdatePropertiesAsync(tt.Id, tt.BuildUpdateCommand());
+        }
+
+        /// <summary>
+        /// Adds the <see cref="TodoTask"/> in Notion.
+        /// </summary>
+        /// <param name="tt">The task to add.</param>
+        /// <returns>A task representing the add command.</returns>
+        public async Task AddTodoTask(TodoTask tt)
         {
             await this.GetDatabaseIdIfNeeded();
 
             var pageCreateCommand = new PagesCreateParameters
             {
                 Parent = new DatabaseParentInput { DatabaseId = this.TaskDatabaseId },
-                Properties = new Dictionary<string, PropertyValue>
-                {
-                    {
-                        "Name",
-                        new TitlePropertyValue()
-                            { Title = new List<RichTextBase>() { new RichTextText() { Text = new Text { Content = name } } } }
-                    },
-                    {
-                        "State",
-                        new SelectPropertyValue() { Select = new SelectOption() { Name = "Not Ready" } }
-                    },
-                },
+                Properties = tt.BuildUpdateCommand(),
             };
 
             await this.client.Pages.CreateAsync(pageCreateCommand);
+        }
+
+        private async Task GetDatabaseIdIfNeeded()
+        {
+            if (this.TaskDatabaseId == null)
+            {
+                this.TaskDatabaseId = await this.GetTaskDatabaseId();
+            }
         }
     }
 }

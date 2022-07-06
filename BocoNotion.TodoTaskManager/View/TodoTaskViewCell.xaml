@@ -3,11 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="BocoNotion.TodoTaskManager.Component.TodoTaskViewCell">
   <ViewCell.View>
-    <StackLayout Orientation="Horizontal">
+    <StackLayout Orientation="Horizontal"
+                 VerticalOptions="Center">
         <CheckBox
             IsChecked="{Binding Path=Checked, Mode=TwoWay}"/>
-        <StackLayout Orientation="Vertical">
-            <Label Text="{Binding Path=Title}" />
+        <StackLayout Orientation="Vertical"
+                     VerticalOptions="CenterAndExpand">
+            <Label Text="{Binding Path=Title}"
+                   VerticalOptions="CenterAndExpand"/>
         </StackLayout>
     </StackLayout>
   </ViewCell.View>

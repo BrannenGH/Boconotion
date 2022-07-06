@@ -7,10 +7,14 @@
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
              ios:Page.UseSafeArea="true">
     <NavigationPage.TitleView>
-        <StackLayout Orientation="Horizontal">
-            <Label Text="To-Do"/>
+        <StackLayout Orientation="Horizontal"
+                     VerticalOptions="Center">
+            <Label Text="To-Do"
+                   HorizontalOptions="CenterAndExpand"
+                   VerticalOptions="Center" />
             <Button x:Name="SaveToken" Text="Save"
-                Command="{Binding UpdateTasksCommand}"/>
+                Command="{Binding UpdateTasksCommand}"
+                    HorizontalOptions="End"/>
         </StackLayout>
     </NavigationPage.TitleView>
 
