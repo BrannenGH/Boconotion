@@ -17,7 +17,13 @@ namespace BocoNotion.TodoTaskManager.ViewModel
     {
         private TaskRepository taskRepository;
 
-        public ObservableCollection<TodoTaskViewModel> TodoTasks = new ObservableCollection<TodoTaskViewModel>();
+        public ObservableCollection<TodoTaskViewModel> TodoTasks
+        {
+            get => this.todoTasks;
+            set => this.SetProperty(ref this.todoTasks, value);
+        }
+
+        public ObservableCollection<TodoTaskViewModel> todoTasks = new ObservableCollection<TodoTaskViewModel>();
 
         public ICommand LoadTasksCommand { get; }
         public ICommand UpdateTasksCommand { get; }

@@ -15,6 +15,8 @@
     <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
     <PackageReference Include="Microsoft.Toolkit.Mvvm" Version="7.1.2" />
     <PackageReference Include="Behaviors.Forms" Version="1.4.0" />
+    <PackageReference Include="ValueConverters" Version="2.2.10" />
+    <PackageReference Include="Xamarin.Forms.PancakeView" Version="2.3.0.759" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BocoNotion.Shared\BocoNotion.Shared.csproj" />

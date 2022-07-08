@@ -1,5 +1,7 @@
 ﻿namespace BocoNotion.TodoTaskManager.ViewModel
 {
+    using System;
+    using System.Collections.ObjectModel;
     using System.Linq;
     using BocoNotion.Shared.Model;
     using Microsoft.Toolkit.Mvvm.ComponentModel;
@@ -57,9 +59,30 @@
             }
         }
 
+        public DateTime? DueDate
+        {
+            get => this.TodoTask.DueDate;
+            set
+            {
+                this.SetProperty(this.TodoTask.DueDate, value, this.TodoTask, (tt, dueDate) => tt.DueDate = dueDate);
+                this.NeedsUpdate = true;
+            }
+        }
+
+        // TODO: Implement tracking
+        public ObservableCollection<string> tags;
+
+        public ObservableCollection<string> Tags
+        {
+            get => this.tags;
+            set => this.SetProperty(ref this.tags, value);
+        }
+
         public TodoTaskViewModel(TodoTask tt)
         {
             this.TodoTask = tt;
+
+            this.Tags = new ObservableCollection<string>(tt.Tags);
         }
     
         public void OnUpdate()

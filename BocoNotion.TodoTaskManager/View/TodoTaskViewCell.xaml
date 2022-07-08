@@ -1,17 +1,54 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ViewCell xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="BocoNotion.TodoTaskManager.Component.TodoTaskViewCell">
-  <ViewCell.View>
-    <StackLayout Orientation="Horizontal"
-                 VerticalOptions="Center">
-        <CheckBox
-            IsChecked="{Binding Path=Checked, Mode=TwoWay}"/>
-        <StackLayout Orientation="Vertical"
-                     VerticalOptions="CenterAndExpand">
+             x:Class="BocoNotion.TodoTaskManager.View.TodoTaskViewCell"
+             xmlns:view="clr-namespace:BocoNotion.TodoTaskManager.View"
+             BindingContext="{Binding}">
+    <ViewCell.Height>
+        70
+    </ViewCell.Height>
+    <ViewCell.View>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="6*"/>
+            </Grid.ColumnDefinitions>
+            <CheckBox
+                IsChecked="{Binding Path=Checked, Mode=TwoWay}"
+                Grid.RowSpan="2"/>
             <Label Text="{Binding Path=Title}"
-                   VerticalOptions="CenterAndExpand"/>
-        </StackLayout>
-    </StackLayout>
-  </ViewCell.View>
+                   Grid.Column="1"
+                   Grid.ColumnSpan="2"
+                    VerticalOptions="Start"
+                    LineBreakMode="TailTruncation"/>
+            <StackLayout
+                Orientation="Horizontal"
+                Grid.Row="1"
+                Grid.Column="1">
+                <Label Text="⏱️" />
+                <Label
+                    Text="{Binding Path=DueDate, StringFormat='{MM-dd-yy}'}"/>
+            </StackLayout>
+
+            <CollectionView
+                x:Name="TagView"
+                ItemsSource="{Binding Path=Tags}"
+                ItemsLayout="HorizontalList"
+                Grid.Row="1"
+                Grid.Column="2"
+                >
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <view:TodoTaskTagView BindingContext="{Binding .}" />
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+
+    </ViewCell.View>
 </ViewCell>

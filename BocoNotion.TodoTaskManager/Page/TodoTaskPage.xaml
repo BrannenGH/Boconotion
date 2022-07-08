@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="BocoNotion.TodoTaskManager.Page.TodoTaskPage"
              xmlns:behaviors="clr-namespace:Behaviors;assembly=Behaviors"
-             xmlns:component="clr-namespace:BocoNotion.TodoTaskManager.Component"
+             xmlns:view="clr-namespace:BocoNotion.TodoTaskManager.View"
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
              ios:Page.UseSafeArea="true">
     <NavigationPage.TitleView>
@@ -25,27 +25,18 @@
     </ContentPage.Behaviors>
 
     <StackLayout Orientation="Vertical">
-        <ScrollView
-            VerticalOptions="FillAndExpand">
-            <StackLayout Orientation="Vertical">
-                <ListView x:Name="TodoTaskListView"
-                        ItemsSource="{Binding TodoTasks}">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <component:TodoTaskViewCell />
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </StackLayout>
-        </ScrollView>
-        <StackLayout Orientation="Horizontal">
-            <Entry Text="{Binding NewTaskTitle, Mode=TwoWay}"
-                   HorizontalOptions="FillAndExpand"/>
-            <Button
-                Text="+"
-                Command="{Binding AddTaskCommand}"
-                IsEnabled="{Binding CanAddTask}"/>
+        <StackLayout Orientation="Vertical">
+            <ListView x:Name="TodoTaskListView"
+                    ItemsSource="{Binding TodoTasks}"
+                    HasUnevenRows="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <view:TodoTaskViewCell />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </StackLayout>
+        <view:AddTodoTaskView BindingContext="{Binding .}" />       
     </StackLayout>
 
 </ContentPage>

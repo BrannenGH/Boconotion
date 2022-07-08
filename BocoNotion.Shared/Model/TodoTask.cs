@@ -1,5 +1,7 @@
 namespace BocoNotion.Shared.Model
 {
+    using System;
+
     /// <summary>
     /// Represents a task in a todo list.
     /// </summary>
@@ -19,5 +21,15 @@ namespace BocoNotion.Shared.Model
         /// Gets or sets a value indicating whether the task is done or not.
         /// </summary>
         public bool Checked { get; set; }
+
+        /// <summary>
+        /// Gets or sets the set of tags associated with this task.
+        /// </summary>
+        public string[] Tags { get; set; }
+
+        /// <summary>
+        /// Gets or sets the due date for this task.
+        /// </summary>
+        public DateTime? DueDate { get; set; }
      }
 }
