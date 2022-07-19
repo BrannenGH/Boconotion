@@ -31,7 +31,8 @@
                     HasUnevenRows="True">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <view:TodoTaskViewCell />
+                        <view:TodoTaskViewCell
+                            OnClick="TodoTaskViewCell_OnClick"/>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>

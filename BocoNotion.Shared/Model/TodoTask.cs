@@ -31,5 +31,10 @@ namespace BocoNotion.Shared.Model
         /// Gets or sets the due date for this task.
         /// </summary>
         public DateTime? DueDate { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Notion URI for this task.
+        /// </summary>
+        public Uri NotionUri { get; set; }
      }
 }

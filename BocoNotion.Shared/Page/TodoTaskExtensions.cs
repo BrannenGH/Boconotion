@@ -60,11 +60,11 @@
         {
             return new MultiSelectPropertyValue()
             {
-                MultiSelect = tt.Tags.Select(tag =>
+                MultiSelect = tt.Tags?.Select(tag =>
                     new SelectOption()
                     {
                         Name = tag
-                    }).ToList(),
+                    }).ToList() ?? new List<SelectOption>(),
             };
         }
         #endregion
@@ -79,11 +79,16 @@
 
         public static DatePropertyValue GetDueDateForNotion(this TodoTask tt)
         {
+            if (!tt.DueDate.HasValue)
+            {
+                return null;
+            }
+
             return new DatePropertyValue
             {
                 Date = new Date
                 {
-                    End = tt.DueDate,
+                    Start = tt.DueDate,
                 },
             };
         }
@@ -103,10 +108,12 @@
         public static TodoTask ToPoco(this Page page)
         {
             var tt = new TodoTask();
+            tt.Id = page.Id;
             tt.SetTitleFromNotion(page.Properties["Name"] as TitlePropertyValue);
             tt.SetStateFromNotion(page.Properties["State"] as SelectPropertyValue);
             tt.SetTagsFromNotion(page.Properties["Tags"] as MultiSelectPropertyValue);
             tt.SetDueDateFromNotion(page.Properties["Due Date"] as DatePropertyValue);
+            tt.NotionUri = new Uri(page.Url);
             return tt;
         }
     }

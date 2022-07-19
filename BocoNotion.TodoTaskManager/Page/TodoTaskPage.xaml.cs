@@ -21,5 +21,18 @@
         }
 
         private TodoTasksViewModel ViewModel => (TodoTasksViewModel)this.BindingContext;
+
+        private async void TodoTaskViewCell_OnClick(Object sender, System.EventArgs e)
+        {
+            TodoTaskViewModel ttvm = (sender as BindableObject).BindingContext as TodoTaskViewModel;
+
+            await this.ParentNavigationPage.PushAsync(new ContentPage
+            {
+                Content = new WebView
+                {
+                    Source = ttvm.TodoTask.NotionUri,
+                },
+            });
+        }
     }
 }

@@ -17,6 +17,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="4*"/>
                 <ColumnDefinition Width="6*"/>
+                <ColumnDefinition Width="*"/>                                  
             </Grid.ColumnDefinitions>
             <CheckBox
                 IsChecked="{Binding Path=Checked, Mode=TwoWay}"
@@ -48,6 +49,10 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
+            <Button Clicked="Button_Clicked"
+                    Text=">"
+                    Grid.Column="3"
+                    Grid.RowSpan="2"/>
         </Grid>
 
     </ViewCell.View>
