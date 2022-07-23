@@ -29,7 +29,7 @@
         /// <inheritdoc/>
         public override Page Convert(TodoTask poco)
         {
-            return new Page
+            var page = new Page
             {
                 Id = string.Empty,
                 Properties = new Dictionary<string, PropertyValue>
@@ -37,9 +37,15 @@
                     { "Name", this.ConvertToTitle(poco.Title) },
                     { "State", this.ConvertToSelect(poco.Checked ? "Done" : "Ready to Execute") },
                     { "Tags", this.Convert(poco.Tags) },
-                    { "Due Date", this.Convert(poco.DueDate) },
                 },
             };
+
+            if (poco.DueDate.HasValue)
+            {
+                page.Properties.Add("Due Date", this.Convert(poco.DueDate));
+            }
+
+            return page;
         }
     }
 }

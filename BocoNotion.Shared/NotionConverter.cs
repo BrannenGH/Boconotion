@@ -62,11 +62,14 @@
         {
             return new TitlePropertyValue()
             {
-                Title = new List<RichTextBase>
+                Title = new List<RichTextBase>()
                 {
-                    new RichTextBase
+                    new RichTextText()
                     {
-                        PlainText = title,
+                        Text = new Text
+                        {
+                            Content = title,
+                        },
                     },
                 },
             };
@@ -116,7 +119,7 @@
         {
             return new MultiSelectPropertyValue()
             {
-                MultiSelect = values.Select(value =>
+                MultiSelect = values?.Select(value =>
                     new SelectOption()
                     {
                         Name = value,
@@ -141,11 +144,6 @@
         /// <returns></returns>
         protected DatePropertyValue Convert(DateTime? dateTime)
         {
-            if (!dateTime.HasValue)
-            {
-                return null;
-            }
-
             return new DatePropertyValue
             {
                 Date = new Date

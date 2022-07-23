@@ -17,6 +17,7 @@
     <PackageReference Include="Behaviors.Forms" Version="1.4.0" />
     <PackageReference Include="Xamarin.Forms.PancakeView" Version="2.3.0.759" />
     <PackageReference Include="Autofac" Version="6.4.0" />
+    <PackageReference Include="Serilog.Extensions.Logging" Version="3.1.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BocoNotion.Shared\BocoNotion.NotionIntegration.csproj" />

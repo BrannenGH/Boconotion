@@ -5,6 +5,8 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Serilog;
 using Autofac;
+using Notion.Client;
+using Serilog.Extensions.Logging;
 
 namespace BocoNotion.TodoTaskManager
 {
@@ -20,7 +22,9 @@ namespace BocoNotion.TodoTaskManager
 
             builder.RegisterInstance(provider).As<ITokenProvider>();
 
-            builder.RegisterInstance(loggerProvider.GetLogger()).As<ILogger>();
+            var logger = loggerProvider.GetLogger();
+            builder.RegisterInstance(logger).As<ILogger>();
+            NotionClientLogging.ConfigureLogger(new SerilogLoggerFactory(logger));
 
             var container = builder.Build();
 
