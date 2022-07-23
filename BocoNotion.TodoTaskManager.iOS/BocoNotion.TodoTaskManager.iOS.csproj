@@ -72,6 +72,7 @@
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Persistence\AppleTokenProvider.cs" />
+    <Compile Include="Persistence\AppleLoggerProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
@@ -131,12 +132,19 @@
     <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
     <PackageReference Include="SimpleStorage" Version="1.4.36" />
     <PackageReference Include="Hackiftekhar.IQKeyboardManager.Xamarin" Version="6.5.6" />
+    <PackageReference Include="Serilog.Sinks.Xamarin" Version="0.2.0.64" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)/Xamarin/iOS/Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
     <ProjectReference Include="..\BocoNotion.TodoTaskManager\BocoNotion.TodoTaskManager.csproj">
       <Project>{5D3B3298-D100-4163-80EE-3E020506198B}</Project>
       <Name>BocoNotion.TodoTaskManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BocoNotion.Shared\BocoNotion.NotionIntegration.csproj">
+      <Name>BocoNotion.NotionIntegration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BocoNotion.Models\BocoNotion.Model.csproj">
+      <Name>BocoNotion.Model</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

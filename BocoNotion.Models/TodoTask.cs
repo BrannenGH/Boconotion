@@ -1,4 +1,4 @@
-namespace BocoNotion.Shared.Model
+namespace BocoNotion.Model
 {
     using System;
 

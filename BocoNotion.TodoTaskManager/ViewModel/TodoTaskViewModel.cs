@@ -3,9 +3,8 @@
     using System;
     using System.Collections.ObjectModel;
     using System.Linq;
-    using BocoNotion.Shared.Model;
+    using BocoNotion.Model;
     using Microsoft.Toolkit.Mvvm.ComponentModel;
-    using Notion.Client;
 
     public class TodoTaskViewModel : ObservableObject
     {

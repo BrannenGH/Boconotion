@@ -25,7 +25,7 @@ namespace BocoNotion.TodoTaskManager.iOS
         {
             global::Xamarin.Forms.Forms.Init();
             IQKeyboardManager.SharedManager().Enable = true;
-            LoadApplication(new App(new AppleTokenProvider()));
+            LoadApplication(new App(new AppleTokenProvider(), new AppleLoggerProvider()));
 
             return base.FinishedLaunching(app, options);
         }

@@ -9,7 +9,7 @@
     public class NotionLoginViewModel: ObservableObject
     {
         private string token;
-        private ITokenProvider tokenProvider;
+        public ITokenProvider tokenProvider { get; set; }
 
         public string Token
         {
@@ -23,9 +23,8 @@
         public ICommand SaveTokenCommand { get; }
         public ICommand LoadTokenCommand { get; }
 
-        public NotionLoginViewModel(ITokenProvider provider)
+        public NotionLoginViewModel()
         {
-            this.tokenProvider = provider;
             this.LoadTokenCommand = new AsyncRelayCommand(async () => this.Token = await tokenProvider.GetToken());
             this.SaveTokenCommand = new AsyncRelayCommand(async () => await this.tokenProvider.SetToken(Token));
         }

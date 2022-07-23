@@ -7,7 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BocoNotion.TodoTaskManager.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BocoNotion.TodoTaskManager", "BocoNotion.TodoTaskManager\BocoNotion.TodoTaskManager.csproj", "{5D3B3298-D100-4163-80EE-3E020506198B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BocoNotion.Shared", "BocoNotion.Shared\BocoNotion.Shared.csproj", "{FA98C06A-BD82-44FD-96D5-F27A44A90DC6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BocoNotion.NotionIntegration", "BocoNotion.Shared\BocoNotion.NotionIntegration.csproj", "{FA98C06A-BD82-44FD-96D5-F27A44A90DC6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BocoNotion.Model", "BocoNotion.Models\BocoNotion.Model.csproj", "{C3E627E6-BD15-4197-9C1F-1C8D30C141D2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,6 +57,18 @@ Global
 		{FA98C06A-BD82-44FD-96D5-F27A44A90DC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FA98C06A-BD82-44FD-96D5-F27A44A90DC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FA98C06A-BD82-44FD-96D5-F27A44A90DC6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3E627E6-BD15-4197-9C1F-1C8D30C141D2}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{C3E627E6-BD15-4197-9C1F-1C8D30C141D2}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{C3E627E6-BD15-4197-9C1F-1C8D30C141D2}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{C3E627E6-BD15-4197-9C1F-1C8D30C141D2}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{C3E627E6-BD15-4197-9C1F-1C8D30C141D2}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{C3E627E6-BD15-4197-9C1F-1C8D30C141D2}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{C3E627E6-BD15-4197-9C1F-1C8D30C141D2}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{C3E627E6-BD15-4197-9C1F-1C8D30C141D2}.Release|iPhone.Build.0 = Release|Any CPU
+		{C3E627E6-BD15-4197-9C1F-1C8D30C141D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3E627E6-BD15-4197-9C1F-1C8D30C141D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3E627E6-BD15-4197-9C1F-1C8D30C141D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3E627E6-BD15-4197-9C1F-1C8D30C141D2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,11 +1,14 @@
-﻿namespace BocoNotion.Shared
+﻿namespace BocoNotion.NotionIntegration
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-    using BocoNotion.Shared.Model;
-    using BrannenNotion.Shared.Page;
+    using BocoNotion.Model;
+    using BocoNotion.NotionIntegration.NotionConverter;
     using Notion.Client;
+    using Serilog;
+    using Serilog.Core;
 
     /// <summary>
     /// Repository to proxy calls to manage the Notion task database.
@@ -13,13 +16,19 @@
     public class TaskRepository
     {
         private readonly NotionClient client;
+        private readonly TodoTaskConverter todoTaskConverter = new TodoTaskConverter();
+
+        public ILogger Logger { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TaskRepository"/> class.
         /// </summary>
         /// <param name="client">The authenticated Notion Client.</param>
         /// <param name="taskDatabaseId">Optional database ID for tasks.</param>
-        public TaskRepository(NotionClient client, string taskDatabaseId = null)
+        public TaskRepository(
+            NotionClient client,
+            string taskDatabaseId = null
+        )
         {
             this.client = client;
             this.TaskDatabaseId = taskDatabaseId;
@@ -46,13 +55,27 @@
                 },
             };
 
-            var results = await this.client.Search.SearchAsync(
-                taskSearchParameters
-            );
+            this.Logger?.Debug("Fetching database ID {@TaskSearchParameters}", taskSearchParameters);
+            try
+            {
+                var results = await this.client.Search.SearchAsync(
+                    taskSearchParameters
+                );
 
-            var taskDbRes = results.Results.First();
+                var taskDbRes = results.Results.First();
 
-            return taskDbRes.Id;
+                this.Logger?.Debug("Got back database results {@Results}. Task database is {@TaskDbRes}", results, taskDbRes);
+
+                return taskDbRes.Id;
+
+            }
+            catch (Exception e)
+            {
+                this.Logger?.Error(e, "Failed to get database from Notion.");
+
+                // Throw error after it is logged.
+                throw e;
+            }
         }
 
         /// <summary>
@@ -71,12 +94,27 @@
                 queryParameters.StartCursor = startCursor;
             }
 
-            var results = await this.client.Databases.QueryAsync(this.TaskDatabaseId, queryParameters);
+            try
+            {
+                var results = await this.client.Databases.QueryAsync(this.TaskDatabaseId, queryParameters);
 
-            return (
-                Tasks: results.Results.Select(page => page.ToPoco()).ToList(),
-                NextCursor: results.NextCursor
-            );
+                var convertedTasks = results.Results.Select(page => this.todoTaskConverter.Convert(page)).ToList();
+
+                this.Logger.Debug("Converted tasks {@ConvertedTasks}", convertedTasks);
+
+                return (
+                    Tasks: convertedTasks,
+                    NextCursor: results.NextCursor
+                );
+            }
+            catch (Exception e)
+            {
+                this.Logger.Error(e, "Failed to get tasks from Notion.");
+
+                // Throw error after it is logged.
+                throw e;
+            }
+
         }
 
         /// <summary>
@@ -93,7 +131,16 @@
                 throw new System.Exception("TodoTask is not yet created in database. Cannot update.");
             }
 
-            await this.client.Pages.UpdatePropertiesAsync(tt.Id, tt.BuildUpdateCommand());
+            try
+            {
+                await this.client.Pages.UpdatePropertiesAsync(tt.Id, this.todoTaskConverter.Convert(tt).Properties);
+            }
+            catch (Exception e)
+            {
+                this.Logger?.Error(e, "Could not update TodoTask");
+
+                throw e;
+            }
         }
 
         /// <summary>
@@ -105,13 +152,21 @@
         {
             await this.GetDatabaseIdIfNeeded();
 
-            var pageCreateCommand = new PagesCreateParameters
+            try
             {
-                Parent = new DatabaseParentInput { DatabaseId = this.TaskDatabaseId },
-                Properties = tt.BuildUpdateCommand(),
-            };
+                var pageCreateCommand = new PagesCreateParameters
+                {
+                    Parent = new DatabaseParentInput { DatabaseId = this.TaskDatabaseId },
+                    Properties = this.todoTaskConverter.Convert(tt).Properties,
+                };
 
-            await this.client.Pages.CreateAsync(pageCreateCommand);
+                await this.client.Pages.CreateAsync(pageCreateCommand);
+            }
+            catch (Exception e)
+            {
+                this.Logger?.Error(e, "Could not add TodoTask");
+                throw e;
+            }
         }
 
         private async Task GetDatabaseIdIfNeeded()

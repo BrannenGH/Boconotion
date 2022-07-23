@@ -3,7 +3,7 @@
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
         <ImplicitUsings>disable</ImplicitUsings>
-        <RootNamespace>BrannenNotion.Shared</RootNamespace>
+        <RootNamespace>BocoNotion.NotionIntegration</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
@@ -12,6 +12,10 @@
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
         </PackageReference>
+        <PackageReference Include="Serilog" Version="2.11.0" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\BocoNotion.Models\BocoNotion.Model.csproj" />
+    </ItemGroup>
 </Project>

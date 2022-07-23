@@ -2,10 +2,10 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using Autofac;
     using BocoNotion.TodoTaskManager.ViewModel;
     using Xamarin.Forms;
 
@@ -13,11 +13,12 @@
     {
         public NavigationPage ParentNavigationPage { get; set; }
 
-        public TodoTaskPage(string token)
+        public TodoTaskPage(IContainer container)
         {
             this.InitializeComponent();
 
-            this.BindingContext = new TodoTasksViewModel(token);
+            this.BindingContext = new TodoTasksViewModel();
+            container.InjectUnsetProperties(this.BindingContext);
         }
 
         private TodoTasksViewModel ViewModel => (TodoTasksViewModel)this.BindingContext;

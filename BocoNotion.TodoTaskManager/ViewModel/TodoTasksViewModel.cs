@@ -4,11 +4,13 @@ namespace BocoNotion.TodoTaskManager.ViewModel
     using System.Linq;
     using System.Threading.Tasks;
     using System.Windows.Input;
-    using BocoNotion.Shared;
-    using BocoNotion.Shared.Model;
+    using BocoNotion.Model;
+    using BocoNotion.NotionIntegration;
+    using BocoNotion.TodoTaskManager.Persistence;
     using Microsoft.Toolkit.Mvvm.ComponentModel;
     using Microsoft.Toolkit.Mvvm.Input;
     using Notion.Client;
+    using Serilog;
 
     /// <summary>
     /// View model for the <see cref="TodoTaskPage"/>.
@@ -28,6 +30,9 @@ namespace BocoNotion.TodoTaskManager.ViewModel
         public ICommand LoadTasksCommand { get; }
         public ICommand UpdateTasksCommand { get; }
         public ICommand AddTaskCommand { get; }
+
+        public ITokenProvider tokenProvider { get; set; }
+        public ILogger logger { get; set; }
 
         public string NewTaskTitle
         {
@@ -49,26 +54,31 @@ namespace BocoNotion.TodoTaskManager.ViewModel
 
         private bool canAddTask = false;
 
-        public TodoTasksViewModel(string token)
+        public TodoTasksViewModel()
         {
-            this.ConfigureClient(token);
             this.LoadTasksCommand = new AsyncRelayCommand(this.LoadTasks);
             this.UpdateTasksCommand = new AsyncRelayCommand(this.UpdateTasks);
             this.AddTaskCommand = new AsyncRelayCommand(this.AddTask);
         }
 
-        public void ConfigureClient(string token)
+        public async Task ConfigureClient()
         {
             var client = NotionClientFactory.Create(new ClientOptions
             {
-                AuthToken = token,
+                AuthToken = await this.tokenProvider.GetToken(),
             });
 
             this.taskRepository = new TaskRepository(client);
+            this.taskRepository.Logger = logger;
         }
 
         public async Task LoadTasks()
         {
+            if (this.taskRepository == null)
+            {
+                await this.ConfigureClient();
+            }
+
             var todoTasks = (await this.taskRepository.GetTasks()).Tasks;
             var viewModels = todoTasks.Select(x => new TodoTaskViewModel(x));
             this.TodoTasks.Clear();
@@ -80,6 +90,11 @@ namespace BocoNotion.TodoTaskManager.ViewModel
 
         public async Task UpdateTasks()
         {
+            if (this.taskRepository == null)
+            {
+                await this.ConfigureClient();
+            }
+
             var tasksToUpdate = TodoTasks.Where(task => task.NeedsUpdate);
             foreach (var todoTask in tasksToUpdate)
             {
@@ -91,8 +106,17 @@ namespace BocoNotion.TodoTaskManager.ViewModel
 
         public async Task AddTask()
         {
+            if (this.taskRepository == null)
+            {
+                await this.ConfigureClient();
+            }
+
             this.CanAddTask = false;
-            await this.taskRepository.AddTodoTask(new TodoTask { Title = this.NewTaskTitle });
+            var ttToAdd = new TodoTask { Title = this.NewTaskTitle };
+
+            logger.Information("Adding TodoTask {@TtToAdd}", ttToAdd);
+            await this.taskRepository.AddTodoTask(ttToAdd);
+
             this.NewTaskTitle = "";
             await this.LoadTasks();
             this.CanAddTask = true;
