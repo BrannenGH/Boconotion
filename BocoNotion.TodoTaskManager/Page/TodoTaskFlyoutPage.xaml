@@ -1,0 +1,19 @@
+﻿<FlyoutPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="BocoNotion.TodoTaskManager.Page.TodoTaskFlyoutPage"
+    xmlns:page="clr-namespace:BocoNotion.TodoTaskManager.Page"
+    Title="To-Do">
+    <FlyoutPage.Flyout>
+        <page:FilterTodoTaskPage
+            BindingContext="{Binding .}"
+            Title="Tags"/>
+    </FlyoutPage.Flyout>
+    <FlyoutPage.Detail>
+        <page:TodoTaskPage
+            x:Name="TodoTaskPage"
+            BindingContext="{Binding .}"
+            Title="To-Do"/>
+    </FlyoutPage.Detail>
+</FlyoutPage>
+

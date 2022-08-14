@@ -13,10 +13,14 @@ namespace BocoNotion.TodoTaskManager.iOS.Persistence
 
         public Logger GetLogger()
         {
-            return new LoggerConfiguration()
+            var logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
                 .WriteTo.NSLog()
                 .CreateLogger();
+
+            Application.Logger = logger;
+
+            return logger;
         }
     }
 }

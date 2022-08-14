@@ -13,12 +13,9 @@
     {
         public NavigationPage ParentNavigationPage { get; set; }
 
-        public TodoTaskPage(IContainer container)
+        public TodoTaskPage()
         {
             this.InitializeComponent();
-
-            this.BindingContext = new TodoTasksViewModel();
-            container.InjectUnsetProperties(this.BindingContext);
         }
 
         private TodoTasksViewModel ViewModel => (TodoTasksViewModel)this.BindingContext;

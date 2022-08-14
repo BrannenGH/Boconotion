@@ -1,5 +1,7 @@
 namespace BocoNotion.TodoTaskManager.ViewModel
 {
+    using System;
+    using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
     using System.Threading.Tasks;
@@ -25,11 +27,34 @@ namespace BocoNotion.TodoTaskManager.ViewModel
             set => this.SetProperty(ref this.todoTasks, value);
         }
 
+        public ObservableCollection<string> TodoTaskTags
+        {
+            get => this.todoTaskTags;
+            set => this.SetProperty(ref this.todoTaskTags, value);
+        }
+
+        private string filterTagName;
+
+        public string FilterTagName
+        {
+            get => this.filterTagName;
+            set
+            {
+                this.SetProperty(ref this.filterTagName, value);
+                this.FilterTasks();
+            }
+        }
+
+        public ICollection<TodoTaskViewModel> allTodoTasks = new List<TodoTaskViewModel> { };
+
         public ObservableCollection<TodoTaskViewModel> todoTasks = new ObservableCollection<TodoTaskViewModel>();
+
+        public ObservableCollection<string> todoTaskTags = new ObservableCollection<string>();
 
         public ICommand LoadTasksCommand { get; }
         public ICommand UpdateTasksCommand { get; }
         public ICommand AddTaskCommand { get; }
+        public ICommand FilterTasksCommand { get; }
 
         public ITokenProvider tokenProvider { get; set; }
         public ILogger logger { get; set; }
@@ -79,12 +104,28 @@ namespace BocoNotion.TodoTaskManager.ViewModel
                 await this.ConfigureClient();
             }
 
-            var todoTasks = (await this.taskRepository.GetTasks()).Tasks;
-            var viewModels = todoTasks.Select(x => new TodoTaskViewModel(x));
-            this.TodoTasks.Clear();
-            foreach (var todoTask in viewModels.OrderBy(x => x.Checked))
+            try
             {
-                this.TodoTasks.Add(todoTask);
+                var todoTasks = (await this.taskRepository.GetTasks()).Tasks;
+                allTodoTasks = todoTasks.Select(x => new TodoTaskViewModel(x)).ToList();
+                this.TodoTasks.Clear();
+                this.todoTaskTags.Clear();
+                foreach (var todoTask in allTodoTasks.OrderBy(x => x.Checked))
+                {
+                    this.TodoTasks.Add(todoTask);
+                    foreach (var tag in todoTask.Tags)
+                    {
+                        if (!this.todoTaskTags.Contains(tag))
+                        {
+                            this.todoTaskTags.Add(tag);
+                        }
+
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                logger.Fatal(e, "Could not load todotasks and tags");
             }
         }
 
@@ -120,6 +161,18 @@ namespace BocoNotion.TodoTaskManager.ViewModel
             this.NewTaskTitle = "";
             await this.LoadTasks();
             this.CanAddTask = true;
+        }
+
+        public void FilterTasks()
+        {
+            this.TodoTasks.Clear();
+            foreach (var todoTask in allTodoTasks
+                .Where(x => x.Tags.Contains(this.FilterTagName))
+                .OrderBy(x => x.Checked)
+                )
+            {
+                this.TodoTasks.Add(todoTask);
+            }
         }
 
         public void EvaluateCanAddTask()

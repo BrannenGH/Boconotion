@@ -24,7 +24,10 @@ namespace BocoNotion.TodoTaskManager.Page
 
         async void NotionTokenSubmit_Clicked(Object sender, System.EventArgs e)
         {
-            var taskPage = new TodoTaskPage(this.container);
+            var taskPage = new TodoTaskFlyoutPage();
+            taskPage.Title = "To-Do";
+            taskPage.BindingContext = new TodoTasksViewModel();
+            container.InjectUnsetProperties(taskPage.BindingContext as TodoTasksViewModel);
             taskPage.ParentNavigationPage = this.ParentNavigationPage;
             await this.ParentNavigationPage.Navigation.PushAsync(taskPage);
         }
